@@ -1,0 +1,11 @@
+body {
+    background-color: #f7e6dc;
+    background-image: url(../media/fon_1.jpg);
+    background-size: 100% auto;
+}
+element.style {
+    background-color: #f8f9fac7;
+    /* color: wheat; */
+    padding: 15px;
+    border-radius: 17px;
+}

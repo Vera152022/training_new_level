@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block main_content %}
+<form method="post">
+    <select name="choice" id="education" class="btn btn-warning btn-lg">
+        <option value="one">1 уровень</option>
+        <option value="two">2 уровень</option>
+        <option value="three">3 уровень</option>
+        <option value="four">4 уровень</option>
+        <option value="five">5 уровень</option>
+        <option value="six">Умножение</option>
+    </select>
+    <h1 style="
+    background-color: #f8f9fac7;
+    padding: 15px;
+    border-radius: 17px;
+">Здравствуйте, на этой вкладке вы можете порешать примеры разной сложности,
+        выбрав уровень сложности и нажав кнопку "начать урок". На вкладке
+        "Статистика" вам будет предоставлена информация о ваших достижениях.
+        Так же есть вкладка с дополнительным уроком, которую можно будет открыть
+        после трех выполненных уроков.
+        Но для начала вам надо зарегистрироваться или войти в аккаунт.</h1>
+    <div class="d-grid gap-4 col-7 mx-auto">
+        <p></p>
+        <button type="submit" class="btn btn-warning btn-lg">Начать урок</button>
+    </div>
+</form>
+{% endblock %}

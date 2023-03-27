@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block main_content %}
+<form method="post">
+    {% for i in range(20) %}
+        <p>{{ans[i]}}<input class="form-control" type="number" placeholder={{total[i]}} name="age_{{i}}" id="age" min="0" max="1000"></p>
+    {% endfor %}
+    <div class="d-grid gap-4 col-7 mx-auto">
+        <p></p>
+        <button type="submit" class="btn btn-warning btn-lg">Я все закончил</button>
+    </div>
+</form>
+{% endblock %}
