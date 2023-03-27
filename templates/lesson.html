@@ -2,7 +2,12 @@
 {% block main_content %}
 <form method="post">
     {% for i in range(20) %}
-        <p>{{ans[i]}}<input class="form-control" type="number" placeholder={{total[i]}} name="age_{{i}}" id="age" min="0" max="1000"></p>
+        <h1 style="
+    background-color: #f8f9fac7;
+    padding: 15px;
+    border-radius: 17px;
+">{{ans[i]}}
+    <input class="form-control" type="number" placeholder={{total[i]}} name="age_{{i}}" id="age" min="0" max="1000"></h1>
     {% endfor %}
     <div class="d-grid gap-4 col-7 mx-auto">
         <p></p>

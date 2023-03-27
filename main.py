@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template, redirect
 import random
+import pymorphy2
+morph = pymorphy2.MorphAnalyzer()
 
 signup_is_on = True
 
@@ -74,12 +76,19 @@ def result():
     global good
     if good < 20:
         names = ['support_1', 'support_2', 'support_3', 'support_4', 'support_5']
+        word = morph.parse('ошибка')[0].make_agree_with_number(20 - good).word
+        res = f'Ой, у вас всего лишь {20 - good} {word}, в следующий раз все получится! Я в вас верю.'
         number = random.randint(0, 4)
-        return render_template("result.html", name=names[number])
+        return render_template("result.html", name=names[number], text=res)
     else:
         names = ['well_done_1', 'well_done_2', 'well_done_3', 'well_done_4', 'well_done_5']
+        word = ['Вы умничка! Двигайтесь в том же направлении!!',
+                        'Молодец! Двигайся в том же направлении :)',
+                        'Ура, вы смогли дойти до цели!',
+                        'Похоже, я вижу перед собой гения', 'Класс! Так держать!!!']
         number = random.randint(0, 4)
-        return render_template("result.html", name=names[number])
+        number2 = random.randint(0, 4)
+        return render_template("result.html", name=names[number], text=word[number2])
 
 
 def plus_minus():
