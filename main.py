@@ -71,9 +71,15 @@ def index1(site_id):
 
 @app.route("/result", methods=["GET"])
 def result():
-    names = ['support_1', 'support_2', 'support_3', 'support_4', 'support_5']
-    number = random.randint(0, 4)
-    return render_template("result.html", name=names[number])
+    global good
+    if good < 20:
+        names = ['support_1', 'support_2', 'support_3', 'support_4', 'support_5']
+        number = random.randint(0, 4)
+        return render_template("result.html", name=names[number])
+    else:
+        names = ['well_done_1', 'well_done_2', 'well_done_3', 'well_done_4', 'well_done_5']
+        number = random.randint(0, 4)
+        return render_template("result.html", name=names[number])
 
 
 def plus_minus():
