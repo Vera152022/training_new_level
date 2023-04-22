@@ -2,6 +2,9 @@ from flask import Flask, request, render_template, redirect
 import random
 import pymorphy2
 morph = pymorphy2.MorphAnalyzer()
+from data import db_session
+from data.users import User
+from forms.user import RegisterForm
 
 signup_is_on = True
 
@@ -219,8 +222,44 @@ def multiplication():
         number_2 = random.randint(2, 10)
         dictionary[i] = number_2 * number
         example.append(f'{number} * {number_2} = ')
+    print(example)
+    print(dictionary)
     return [example, dictionary]
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def reqister():
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        if form.password.data != form.password_again.data:
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Пароли не совпадают")
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Такой пользователь уже есть")
+
+        user = User()
+        user.name = form.name.data
+        user.about = form.about.data
+        user.email = form.email.data
+        user.set_password(form.password.data)
+        user.all_test = '0'
+        user.true_test = '0'
+        db_sess = db_session.create_session()
+        db_sess.add(user)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('register.html', title='Регистрация', form=form)
+
+
+
 if __name__ == "__main__":
+    # db = DB("./db", "template.db")
+    # db.global_init()
+    db_session.global_init("db/user.db")
+    db_sess = db_session.create_session()
     app.run(host="0.0.0.0", port=8080)
