@@ -5,15 +5,43 @@ morph = pymorphy2.MorphAnalyzer()
 from data import db_session
 from data.users import User
 from forms.user import RegisterForm
+from forms.login import LoginForm
+from flask_login import LoginManager, login_user, login_required, current_user
+
 
 signup_is_on = True
 
 app = Flask(__name__)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 app.config['SECRET_KEY'] = 'secret_key'
 app.config['UPLOAD_FOLDER'] = 'static/media/from_users'
 app.config['MAX_CONTENT_LENGTH'] = 128 * 1024 * 1024
+
+
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user)
+            return redirect("/")
+        return render_template('login.html',
+                               message="Неправильный логин или пароль",
+                               form=form)
+    return render_template('login.html', title='Авторизация', form=form)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -41,28 +69,24 @@ tot = []
 good = 0
 
 
+@login_required
 @app.route("/lesson/<int:site_id>", methods=["GET", "POST"])
 def index1(site_id):
     global flag, tot, good
-    if site_id == 1 and flag == 1:
-        tot = plus_minus()
-        flag = 0
-    if site_id == 2 and flag == 1:
-        tot = multiplication_division()
-        flag = 0
-    if site_id == 3 and flag == 1:
-        tot = plus_minus_multiplication()
-        flag = 0
-    if site_id == 4 and flag == 1:
-        tot = plus_minus_division()
-        flag = 0
-    if site_id == 5 and flag == 1:
-        tot = multiplication_division_2()
-        flag = 0
-    if site_id == 6 and flag == 1:
-        tot = multiplication()
-        flag = 0
+
     if request.method == "GET":
+        if site_id == 1:
+            tot = plus_minus()
+        if site_id == 2:
+            tot = multiplication_division()
+        if site_id == 3:
+            tot = plus_minus_multiplication()
+        if site_id == 4:
+            tot = plus_minus_division()
+        if site_id == 5:
+            tot = multiplication_division_2()
+        if site_id == 6:
+            tot = multiplication()
         return render_template("lesson.html", ans=tot[0], total=tot[1])
     elif request.method == "POST":
         cells = list(request.form.keys())
@@ -112,7 +136,18 @@ def plus_minus():
                 example.append(f'{number} - {number_2} = ')
     print(example)
     print(dictionary)
+    print(11)
+    add(example, dictionary)
+
     return [example, dictionary]
+
+
+def add(example, dictionary):
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.example = str(example)
+    user.answer = str(dictionary)
+    db_sess.commit()
 
 
 def multiplication_division():
