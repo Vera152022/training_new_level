@@ -73,7 +73,7 @@ good = 0
 @app.route("/lesson/<int:site_id>", methods=["GET", "POST"])
 def index1(site_id):
     global flag, tot, good
-
+    good = 0
     if request.method == "GET":
         if site_id == 1:
             tot = plus_minus()
@@ -101,6 +101,7 @@ def index1(site_id):
 @app.route("/result", methods=["GET"])
 def result():
     global good
+    add_result(good)
     if good < 20:
         names = ['support_1', 'support_2', 'support_3', 'support_4', 'support_5']
         word = morph.parse('ошибка')[0].make_agree_with_number(20 - good).word
@@ -116,6 +117,18 @@ def result():
         number = random.randint(0, 4)
         number2 = random.randint(0, 4)
         return render_template("result.html", name=names[number], text=word[number2])
+
+
+def add_result(good):
+    print(3)
+    good = 20
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.all_test = str(int(user.all_test) + 1)
+    if good == 20:
+        print(4)
+        user.true_test = str(int(user.true_test) + 1)
+    db_sess.commit()
 
 
 def plus_minus():
