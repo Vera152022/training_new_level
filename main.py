@@ -298,7 +298,6 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-
         user = User()
         user.name = form.name.data
         user.about = form.about.data
@@ -309,8 +308,11 @@ def reqister():
         db_sess = db_session.create_session()
         db_sess.add(user)
         db_sess.commit()
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        login_user(user)
         return redirect('/')
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('register.html', form=form)
 
 
 @login_required
