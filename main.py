@@ -135,7 +135,6 @@ def statistic():
 
 
 def add_result(good):
-    good = 20
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
     user.all_test = str(int(user.all_test) + 1)
