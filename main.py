@@ -69,42 +69,44 @@ def choice():
         print(request.form["choice"])
 
 
-tot = []
+user_data = {}
 good = 0
 
 
 @login_required
 @app.route("/lesson/<int:site_id>", methods=["GET", "POST"])
 def index1(site_id):
-    global tot, good
-    good = 0
+    global user_data
     if request.method == "GET":
+        user_data[current_user.id] = {"answers": [], "good_count": 0}
+        tot = user_data[current_user.id]
         if site_id == 1:
-            tot = plus_minus()
+            tot["answers"] = plus_minus()
         if site_id == 2:
-            tot = multiplication_division()
+            tot["answers"] = multiplication_division()
         if site_id == 3:
-            tot = plus_minus_multiplication()
+            tot["answers"] = plus_minus_multiplication()
         if site_id == 4:
-            tot = plus_minus_division()
+            tot["answers"] = plus_minus_division()
         if site_id == 5:
-            tot = multiplication_division_2()
+            tot["answers"] = multiplication_division_2()
         if site_id == 6:
-            tot = multiplication()
-        return render_template("lesson.html", ans=tot[0], total=tot[1])
+            tot["answers"] = multiplication()
+        return render_template("lesson.html", ans=tot["answers"][0], total=tot["answers"][1])
     elif request.method == "POST":
+        tot = user_data[current_user.id]
         cells = list(request.form.keys())
         for i in range(20):
-            if str(request.form[cells[i]]) == str(tot[1][i]):
-                good += 1
-        print(good)
+            if str(request.form[cells[i]]) == str(tot["answers"][1][i]):
+                tot["good_count"] += 1
+        print("Good", tot["good_count"])
         return redirect(f"/result")
 
 
 @login_required
 @app.route("/result", methods=["GET"])
 def result():
-    global good
+    good = user_data[current_user.id]["good_count"]
     add_result(good)
     if good < 20:
         names = ['support_1', 'support_2', 'support_3', 'support_4', 'support_5']
