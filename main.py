@@ -11,7 +11,7 @@ from flask_login import LoginManager, login_user, login_required, current_user, 
 
 signup_is_on = True
 
-app = Flask(__name__)
+app = Flask(__name__)   # Экземпляр нашего класса
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -335,7 +335,7 @@ def e500(code):
     return render_template("error.html", err=", Вам необходимо зарегистрироваться")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # на другом сервере мэин не мэйн
     db_session.global_init("db/user.db")
     db_sess = db_session.create_session()
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080)  # запуск локального веб сервера
