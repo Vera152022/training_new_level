@@ -17,6 +17,7 @@ class User(SqlAlchemyBase, UserMixin):
     answer = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     all_test = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     true_test = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    result = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
