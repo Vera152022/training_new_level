@@ -34,10 +34,10 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-def register_all_handlers(app: Flask):
+def register_all_handlers(app: Flask):  #, login_req_arg: login_required
     register_login(app=app)
     register_choice(app=app)
-    register_index(app=app)
+    register_index(app=app)  #, login_req_arg=login_req_arg
     register_result(app=app)
     register_statistic(app=app)
     register_reqister(app=app)

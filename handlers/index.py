@@ -4,11 +4,11 @@ from data import db_session
 from data.users import User
 from flask_login import login_required, current_user
 
-#
-# login_reg: login_required
+
+login_reg: login_required
 
 
-@login_required
+
 def index(site_id):
     global user_data
     if request.method == "GET":
@@ -201,6 +201,7 @@ def add(example, dictionary):
 
 
 def register_index(app: Flask):
+    # , login_req_arg: login_required
     # global login_reg
-    # login_reg = log_req_arg(index)
+    # login_reg = login_req_arg
     app.add_url_rule('/lesson/<int:site_id>', view_func=index, methods=['GET', 'POST'])
