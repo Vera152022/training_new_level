@@ -43,6 +43,7 @@ def index(site_id):
                 tot["good_count"] += 1
         print("Good", tot["good_count"])
         add_result(tot["good_count"])
+        tot["good_count"] = 0
         return redirect(f"/result")
 
 

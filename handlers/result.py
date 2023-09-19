@@ -22,7 +22,7 @@ def result():
         res = f'Ой, у вас всего лишь {20 - good} {word}, в следующий раз все получится! Я в вас верю.'
         number = random.randint(0, 4)
         return render_template("result.html", name=names[number], text=res)
-    else:
+    elif good == 20:
         names = ['well_done_1', 'well_done_2', 'well_done_3', 'well_done_4', 'well_done_5']
         word = ['Вы умничка! Двигайтесь в том же направлении!!',
                         'Молодец! Двигайся в том же направлении :)',
