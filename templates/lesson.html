@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% block main_content %}
-<form method="post">
+<!--<link rel="stylesheet" href="../static/css/styles.css" />-->
+<form method="post" class="special">
     {% for i in range(20) %}
-        <h1 style="
-    background-color: #f8f9fac7;
-    padding: 15px;
-    border-radius: 17px;
-">{{ans[i]}}
+        <h1>{{ans[i]}}
     <input class="form-control" type="number" name="age_{{i}}" id="age" min="-30" max="1000"></h1>
     {% endfor %}
     <div class="d-grid gap-4 col-7 mx-auto">
@@ -15,3 +12,5 @@
     </div>
 </form>
 {% endblock %}
+
+<!--#F8F9FAc7-->

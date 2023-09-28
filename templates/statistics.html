@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block main_content %}
+<form method="GET" style="
+    background-color: rgba(248, 249, 250, .9);
+    padding: 15px;
+    border-radius: 17px;">
 <h1>Статистика</h1>
 <h4>Общее количество сделанных тестов:</h4>
 <h2>{{all}}</h2>
 <h4>Количество тестов, сделанных на отлично:</h4>
 <h2>{{good}}</h2>
+</form>
 {% endblock %}

@@ -2,10 +2,22 @@ body {
     background-color: #f7e6dc;
     background-image: url(../media/fon_1.jpg);
     background-size: 100% auto;
+    background-attachment: fixed;
+}
+header {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
 }
 element.style {
     background-color: #f8f9fac7;
     /* color: wheat; */
+    padding: 15px;
+    border-radius: 17px;
+}
+h1.special {
+    background-color: rgba(248, 249, 250, .9);
     padding: 15px;
     border-radius: 17px;
 }
