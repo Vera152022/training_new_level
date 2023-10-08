@@ -7,14 +7,15 @@ from data.users import User
 from flask_login import login_required, current_user
 
 
+# ошибка была в том что user.result == str, ааааааа, но я смогла найти. Молодец!!!!!!!!
+
+
 @login_required
 def result():
-    print('++++++++')
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
-    good = user.result
+    good = int(user.result)
     db_sess.commit()
-    print(good, '---------+++')
     add_result(good)
     if good < 20:
         names = ['support_1', 'support_2', 'support_3', 'support_4', 'support_5']

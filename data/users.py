@@ -15,6 +15,7 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     example = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     answer = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    answer_user = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     all_test = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     true_test = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     result = sqlalchemy.Column(sqlalchemy.String, nullable=True)
