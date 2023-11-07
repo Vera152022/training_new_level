@@ -16,8 +16,13 @@ element.style {
     padding: 15px;
     border-radius: 17px;
 }
-h1.special {
+.examples {
     background-color: rgba(248, 249, 250, .9);
+    padding: 15px;
+    border-radius: 17px;
+}
+.main {
+    background-color: #f8f9fac7;
     padding: 15px;
     border-radius: 17px;
 }

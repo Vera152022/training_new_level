@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block main_content %}
-<!--<link rel="stylesheet" href="../static/css/styles.css" />-->
 <form method="post" class="special">
     {% for i in range(20) %}
-        <h1>{{ans[i]}}
-    <input class="form-control" type="number" name="age_{{i}}" id="age" min="-30" max="1000"></h1>
+
+        <h1 class="examples">{{ans[i]}}
+            <input class="form-control" type="number" name="age_{{i}}" id="age" min="-30" max="1000"></h1>
     {% endfor %}
     <div class="d-grid gap-4 col-7 mx-auto">
         <p></p>
