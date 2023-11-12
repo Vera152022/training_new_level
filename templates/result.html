@@ -6,5 +6,16 @@
 <h1>{{text}}</h1>
 <div class="d-grid gap-4 col-7 mx-auto">
 <a href="/" class="btn btn-warning btn-lg">Вернуться на главную страницу</a>
-</div>
+
+<h1 class="examples">Примеры, в которых вы ошиблись:</h1></div>
+<form method="post" class="special">
+    {% for i in range(number) %}
+
+        <h1 class="examples">{{incorrect[i][0]}} Ваш ответ: {{incorrect[i][1]}}, Правильные ответ: {{incorrect[i][2]}}</h1>
+    {% endfor %}
+
+</form>
+
+
 {% endblock %}
+<!--        <h1 class="examples"></h1>-->

@@ -22,7 +22,10 @@ def result():
         word = morph.parse('ошибка')[0].make_agree_with_number(20 - good).word
         res = f'Ой, у вас всего лишь {20 - good} {word}, в следующий раз все получится! Я в вас верю.'
         number = random.randint(0, 4)
-        return render_template("result.html", name=names[number], text=res)
+        incorrect = incorrect_examples()
+        print(incorrect)
+        print(len(incorrect))
+        return render_template("result.html", name=names[number], text=res, number=len(incorrect), incorrect=incorrect) #
     elif good == 20:
         names = ['well_done_1', 'well_done_2', 'well_done_3', 'well_done_4', 'well_done_5']
         word = ['Вы умничка! Двигайтесь в том же направлении!!',
@@ -32,6 +35,23 @@ def result():
         number = random.randint(0, 4)
         number2 = random.randint(0, 4)
         return render_template("result.html", name=names[number], text=word[number2])
+
+
+def incorrect_examples():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    examples_1 = user.example
+    tru_answer_1 = user.answer
+    you_answer_1 = user.answer_user
+    db_sess.commit()
+    total = []
+    you_answer = you_answer_1.split(';')
+    examples = examples_1.split(';')
+    tru_answer = tru_answer_1.split(';')
+    for i in range(20):
+        if tru_answer[i] != you_answer[i]:
+            total.append([examples[i], you_answer[i], tru_answer[i]])
+    return total
 
 
 def add_result(good):

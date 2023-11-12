@@ -34,42 +34,40 @@ def index(site_id):
         return render_template("lesson.html", ans=tot["answers"][0])
     elif request.method == "POST":
         # user_answer(user_data[current_user.id])
-        print()
         tot = user_data[current_user.id]
         cells = list(request.form.keys())
-        print(request.form[cells[0]])
-        print('--', cells)
-        print(999999999, request.form)
         ss = []
         for i in range(20):
             ss.append(str(request.form[cells[i]]))
             print(str(request.form[cells[i]]))
             print(str(tot["answers"][1][i]))
             print('p', tot["answers"])
+
             if str(request.form[cells[i]]) == str(tot["answers"][1][i]):
                 tot["good_count"] += 1
         print("Good", tot["good_count"])
-
+        print(ss, 'dddd')
+        print(';'.join(ss))
+        print(';;;;;;;;;;;;;;;;;;;9')
         # user_answer(ss)
         add_result(tot["good_count"])
         tot["good_count"] = 0
+        tot["you_answer"] = ss
+        user_answer(';'.join(ss))
         return redirect("/result")
 
 
-# def user_answer(answer):
-#     db_sess = db_session.create_session()
-#     user = db_sess.query(User).filter(User.id == current_user.id).first()
-#     user.answer_user = answer
-#     db_sess.commit()
+def user_answer(answer):
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.answer_user = answer
+    db_sess.commit()
 
 
 def add_result(number):
-    print(number)
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
     user.result = number
-    print(user.result, '000000')
-
     db_sess.commit()
 
 
@@ -211,12 +209,14 @@ def multiplication():
 
 
 def add(example, dictionary):
+    dict = []
+    for i in range(20):
+        dict.append(str(dictionary[i]))
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
-    user.example = str(example)
-    user.answer = str(dictionary)
+    user.example = ';'.join(example)
+    user.answer = ';'.join(dict)
     db_sess.commit()
-
 
 def register_index(app: Flask):
     # login_req_arg: login_required
