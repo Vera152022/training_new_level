@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block main_content %}
 <form method="post" class="special">
+    <div class="examples">
     {% for i in range(20) %}
 
-        <h1 class="examples">{{ans[i]}}
+        <h1>{{ans[i]}}
             <input class="form-control" type="number" name="age_{{i}}" id="age" min="-30" max="1000"></h1>
-    {% endfor %}
+    {% endfor %}</div>
     <div class="d-grid gap-4 col-7 mx-auto">
         <p></p>
         <button type="submit" class="btn btn-warning btn-lg">Я все закончил</button>

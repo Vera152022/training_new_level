@@ -25,7 +25,7 @@ def result():
         incorrect = incorrect_examples()
         print(incorrect)
         print(len(incorrect))
-        return render_template("result.html", name=names[number], text=res, number=len(incorrect), incorrect=incorrect) #
+        return render_template("result.html", name=names[number], text=res, number=len(incorrect), incorrect=incorrect)
     elif good == 20:
         names = ['well_done_1', 'well_done_2', 'well_done_3', 'well_done_4', 'well_done_5']
         word = ['Вы умничка! Двигайтесь в том же направлении!!',
