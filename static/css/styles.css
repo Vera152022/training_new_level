@@ -25,3 +25,13 @@ element.style {
     padding: 15px;
     border-radius: 17px;
 }
+.form-control{
+    display: inline;
+    width: 65%;
+}
+.style_p {
+    font-size:25px;
+}
+.style_li {
+    font-size:20px;
+}
